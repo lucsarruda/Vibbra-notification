@@ -27,7 +27,7 @@ Um jeito vibbrante de enviar suas notificações.
 
 
 ## 🔗 Link
-https://katherineoelsner.com/
+https://app-vibbranotification.web.app/
 
 
 
@@ -36,7 +36,7 @@ https://katherineoelsner.com/
 Clone o projeto
 
 ```bash
-  git clone https://link-para-o-projeto
+  git clone https://github.com/lucsarruda/vibbra-notification
 ```
 
 Entre no diretório do projeto
