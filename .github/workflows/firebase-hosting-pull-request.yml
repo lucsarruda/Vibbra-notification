@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: '12.x'
-      - run: npm watch
+      - run: ng build --configuration=production
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           args: deploy --only hosting
