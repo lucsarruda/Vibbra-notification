@@ -18,11 +18,10 @@ jobs:
       run: npm install
     - name: Build
       run: npm run build
-    - uses: FirebaseExtended/action-hosting-deploy@v0
+    - uses: w9jds/firebase-action@main
       with:
         args: deploy --only hosting
-        repoToken: '${{ secrets.GITHUB_TOKEN }}'
-        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_APP_VIBBRANOTIFICATION }}'
-        projectId: app-vibbranotification
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
           
