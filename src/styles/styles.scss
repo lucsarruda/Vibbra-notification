@@ -1,0 +1,24 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+
+
+  $snackBarContainerColorError: #d32f2f;
+  $snackBarContainerColorSuccess: #43a047;
+  $snackBarContainerColorInfo: #4378a0;
+  mat-snack-bar-container.success {
+    .mdc-snackbar__surface {
+      background-color: $snackBarContainerColorSuccess !important;
+    }
+  }
+  mat-snack-bar-container.info {
+    .mdc-snackbar__surface {
+      background-color: $snackBarContainerColorError !important;
+    }
+  }
+  mat-snack-bar-container.error {
+    .mdc-snackbar__surface {
+      background-color: $snackBarContainerColorError !important;
+    }
+  }

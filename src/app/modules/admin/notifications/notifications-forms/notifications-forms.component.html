@@ -1,0 +1,265 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">{{title}}</div>
+        <button
+            mat-icon-button
+            (click)="discard()"
+            [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+        </button>
+    </div>
+
+    <!-- Compose form -->
+    <form
+        class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
+        [formGroup]="Form">
+        
+        <mat-form-field >
+            <mat-label>Aplicativo</mat-label>
+            <mat-select [formControlName]="'app'" >
+                <ng-container *ngFor="let app of apps ">
+                    <mat-option [value]="app.app_id">
+                        {{app.app_name}}
+                    </mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+        
+
+        <mat-form-field >
+            <mat-label>Canal</mat-label>
+            <mat-select [formControlName]="'channel'" >
+                <mat-option [value]="'webpush'"> Web Push</mat-option>
+                <mat-option [value]="'email'">E-mail</mat-option>
+                <mat-option [value]="'sms'">SMS</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="w-full" *ngIf="Form.get('channel').value === 'webpush'">
+            <div class="text-lg">Audiencia</div>
+            <div class="text-secondary">Adicione um ou mais audiencia</div>
+            <div class="text-secondary flex items-center justify-end">
+                <button
+                    class="ml-4"
+                    mat-flat-button
+                    type="button"
+                    (click)="addLineForms('webpush_audiencia')"
+                    [disabled]="Form.disabled"
+                    [color]="'primary'">
+                     <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_solid:plus-circle'"
+                    matPrefix></mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <ng-container  formArrayName="webpush_audiencia" *ngIf="Form.get('channel').value === 'webpush'" >
+            <ng-container  *ngFor="let template of Form.get('webpush_audiencia')['controls'] ;let i=index ">
+                <div class="grid sm:grid-cols-4 gap-6 w-full" >
+                    <div class="sm:col-span-3">
+                        <mat-form-field
+                            class="w-full">
+                            <mat-label>Nome Audiencia {{i + 1 }} </mat-label>
+                            <input
+                                [formControl]="template.get('name')"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex items-center ">
+                        <button
+                            class="ml-4"
+                            mat-flat-button
+                            type="button"
+                            (click)="deleteLine(i , 'webpush_audiencia')"
+                            [disabled]="Form.disabled"
+                            [color]="'warn'">
+                            <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:trash'"
+                            matPrefix></mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container >
+
+        <mat-form-field *ngIf="Form.get('channel').value === 'webpush'" >
+            <mat-label>Titulo Mensagem</mat-label>
+            <input
+                matInput
+                [formControlName]="'webpush_title'">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="Form.get('channel').value === 'webpush'" >
+            <mat-label>Texto Mensagem</mat-label>
+            <textarea
+                    matInput
+                    [formControlName]="'webpush_mensagem'"
+                    cdkTextareaAutosize
+                    [cdkAutosizeMinRows]="5"></textarea>
+        </mat-form-field>
+        
+
+        <mat-form-field *ngIf="Form.get('channel').value === 'webpush'" >
+            <mat-label>URL Icone</mat-label>
+            <input
+                matInput
+                [formControlName]="'webpush_icone'">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="Form.get('channel').value === 'webpush'" >
+            <mat-label>Link Destino</mat-label>
+            <input
+                matInput
+                [formControlName]="'webpush_destino'">
+        </mat-form-field>
+
+        <div class="w-full" *ngIf="Form.get('channel').value === 'sms'">
+            <div class="text-lg">Telefones para envio</div>
+            <div class="text-secondary">Adicione um ou mais telefones</div>
+            <div class="text-secondary flex items-center justify-end">
+                <button
+                    class="ml-4"
+                    mat-flat-button
+                    type="button"
+                    (click)="addLineForms('sms_telefones')"
+                    [disabled]="Form.disabled"
+                    [color]="'primary'">
+                     <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_solid:plus-circle'"
+                    matPrefix></mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <ng-container  formArrayName="sms_telefones" *ngIf="Form.get('channel').value === 'sms'" >
+            <ng-container  *ngFor="let template of Form.get('sms_telefones')['controls'] ;let i=index ">
+                <div class="grid sm:grid-cols-4 gap-6 w-full" >
+                    <div class="sm:col-span-3">
+                        <mat-form-field
+                            class="w-full">
+                            <mat-label>Telefone {{i + 1 }} </mat-label>
+                            <input
+                                [formControl]="template.get('name')"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex items-center ">
+                        <button
+                            class="ml-4"
+                            mat-flat-button
+                            type="button"
+                            (click)="deleteLine(i , 'sms_telefones')"
+                            [disabled]="Form.disabled"
+                            [color]="'warn'">
+                            <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:trash'"
+                            matPrefix></mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container >
+
+        <mat-form-field  *ngIf="Form.get('channel').value === 'sms'" >
+            <mat-label>Texto Mensagem</mat-label>
+            <textarea
+                    matInput
+                    [formControlName]="'sms_mensagem'"
+                    cdkTextareaAutosize
+                    [cdkAutosizeMinRows]="5"></textarea>
+        </mat-form-field>
+
+        <div class="w-full" *ngIf="Form.get('channel').value === 'email'">
+            <div class="text-lg">E-mails para envio</div>
+            <div class="text-secondary">Adicione um ou mais telefones</div>
+            <div class="text-secondary flex items-center justify-end">
+                <button
+                    class="ml-4"
+                    mat-flat-button
+                    type="button"
+                    (click)="addLineForms('email_destinatarios')"
+                    [disabled]="Form.disabled"
+                    [color]="'primary'">
+                     <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_solid:plus-circle'"
+                    matPrefix></mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <ng-container  formArrayName="email_destinatarios" *ngIf="Form.get('channel').value === 'email'" >
+            <ng-container  *ngFor="let template of Form.get('email_destinatarios')['controls'] ;let i=index ">
+                <div class="grid sm:grid-cols-4 gap-6 w-full" >
+                    <div class="sm:col-span-3">
+                        <mat-form-field
+                            class="w-full">
+                            <mat-label>E-mail {{i + 1 }} </mat-label>
+                            <input
+                                [formControl]="template.get('name')"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex items-center ">
+                        <button
+                            class="ml-4"
+                            mat-flat-button
+                            type="button"
+                            (click)="deleteLine(i , 'email_destinatarios')"
+                            [disabled]="Form.disabled"
+                            [color]="'warn'">
+                            <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:trash'"
+                            matPrefix></mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container >
+
+        <mat-form-field  *ngIf="Form.get('channel').value === 'email'" >
+            <mat-label>Template</mat-label>
+            <mat-select [formControlName]="'email_template'" >
+                <ng-container *ngFor="let template of templates">
+                    <mat-option [value]="template.name">
+                        {{template.name}}
+                    </mat-option>
+                </ng-container>
+            </mat-select>
+        </mat-form-field>
+
+        
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+            <div class="-ml-2">
+            </div>
+            <div class="flex items-center mt-4 sm:order-last">
+                <!-- Discard -->
+                <button
+                    class="sm:mx-3"
+                    mat-stroked-button
+                    (click)="discard()">
+                    {{ this.isnew ? 'Cancelar' : 'Fechar' }}
+                </button>
+                <!-- Send -->
+                <button *ngIf="this.isnew"
+                    class="order-first sm:order-last"
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="salve()">
+                    Enviar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

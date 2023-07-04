@@ -1,0 +1,108 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+    <form [formGroup]="Form">
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Dados de confinguração</div>
+            <div class="text-secondary">Dados de configuração do servidor de SMS</div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <div class="sm:col-span-4">
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Nome do provedor</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:server'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'sms_provider_name'"
+                        matInput>
+                </mat-form-field>
+            </div>
+        
+            <div class="sm:col-span-4">
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Login</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:user'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'sms_provider_login'"
+                        matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Senha</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:key'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'sms_provider_password'"
+                        type="password"
+                        matInput>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+    
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Flash message -->
+        <div
+            class="flex items-center mr-4"
+            *ngIf="flashMessage">
+            <ng-container *ngIf="flashMessage === 'success'">
+                <mat-icon
+                    class="text-green-500"
+                    [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                <span class="ml-2">Cadastro atualizado</span>
+            </ng-container>
+            <ng-container *ngIf="flashMessage === 'error'">
+                <mat-icon
+                    class="text-red-500"
+                    [svgIcon]="'heroicons_outline:x'"></mat-icon>
+                <span class="ml-2">Ocorreu um erro, por favor tente novamente!</span>
+            </ng-container>
+        </div>
+        
+        
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button
+                mat-stroked-button
+                [disabled]="Form.disabled"
+                type="button">
+                Cancelar
+            </button>
+            <button
+                class="ml-4"
+                mat-flat-button
+                type="button"
+                (click)="salve()"
+                [disabled]="Form.disabled"
+                [color]="'primary'">
+                <span *ngIf="!Form.disabled">
+                    Salvar
+                </span>
+                <mat-progress-spinner
+                    *ngIf="Form.disabled"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+        </div>
+    </form>
+
+</div>

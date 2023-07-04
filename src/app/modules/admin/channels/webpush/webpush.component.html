@@ -1,0 +1,220 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+    <form [formGroup]="Form"  #NgForm="ngForm">
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Dados Básicos</div>
+            <div class="text-secondary">Dados de configuração</div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <div class="sm:col-span-4">
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Nome Site</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:globe-alt'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'site_name'"
+                        matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-4">
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>URL Site</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:globe-alt'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'site_address'"
+                        matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-4">
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>URL Icon</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:globe-alt'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'site_url_icon'"
+                        matInput>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+          <!-- Divider -->
+        <div class="my-10 border-t"></div>
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Dados de configuração</div>
+            <div class="text-secondary">Personalização de mensagem de notificação web</div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            
+            <div class="sm:col-span-4">
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Texto Mensagem</mat-label>
+                    <textarea
+                        matInput
+                        [formControlName]="'allow_notification_message_text'"
+                        cdkTextareaAutosize
+                        [cdkAutosizeMinRows]="5"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-4">
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Texto do Botão Permitir</mat-label>
+                    <input
+                        [formControlName]="'allow_notification_allow_button_text'"
+                        matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-4">
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Texto do Botão Negar</mat-label>
+                    <input
+                        [formControlName]="'allow_notification_deny_button_text'"
+                        matInput>
+                </mat-form-field>
+            </div>
+        
+        </div>
+
+        <!-- Divider -->
+        <div class="my-10 border-t"></div>
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Notificação de Boas-Vindas</div>
+            <div class="text-secondary">Personalização de mensagem de Boas-Vindas</div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            
+            <div class="sm:col-span-4">
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Titulo da Notificação</mat-label>
+                    <input
+                        [formControlName]="'welcome_notification_message_title'"
+                        matInput>
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-4">
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Texto Mensagem</mat-label>
+                    <textarea
+                        matInput
+                        [formControlName]="'welcome_notification_message_text'"
+                        cdkTextareaAutosize
+                        [cdkAutosizeMinRows]="5"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="sm:col-span-4">
+                <div
+                    class="flex-auto cursor-pointer"
+                    (click)="twoStepToggle.toggle()">
+                    <div class="leading-6 font-medium">Habilitar Link de Redirecinamento</div>
+                    <div class="text-md text-secondary">
+                        Habilitar / Desabilitar link de destino, ao clicar na notificação.
+                    </div>
+                </div>
+                <mat-slide-toggle
+                    class="ml-4"
+                    [color]="'primary'"
+                    [formControlName]="'welcome_notification_enable_url_redirect'"
+                    #twoStepToggle (change)="toggle($event)">
+                </mat-slide-toggle>
+            </div>
+
+
+            <div class="sm:col-span-4" >
+                <mat-form-field
+                    class="w-full"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>URL de destino Redirecinamento</mat-label>
+                    <input
+                        [formControlName]="'welcome_notification_url_redirect'"
+                        matInput >
+                </mat-form-field>
+            </div>
+        
+        </div>
+
+
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Flash message -->
+        <div
+            class="flex items-center mr-4"
+            *ngIf="flashMessage">
+            <ng-container *ngIf="flashMessage === 'success'">
+                <mat-icon
+                    class="text-green-500"
+                    [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                <span class="ml-2">Cadastro atualizado</span>
+            </ng-container>
+            <ng-container *ngIf="flashMessage === 'error'">
+                <mat-icon
+                    class="text-red-500"
+                    [svgIcon]="'heroicons_outline:x'"></mat-icon>
+                <span class="ml-2">Ocorreu um erro, por favor tente novamente!</span>
+            </ng-container>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button
+                mat-stroked-button
+                [disabled]="Form.disabled"
+                type="button">
+                Cancelar
+            </button>
+            <button
+                class="ml-4"
+                mat-flat-button
+                type="button"
+                (click)="salve()"
+                [disabled]="Form.disabled"
+                [color]="'primary'">
+                <span *ngIf="!Form.disabled">
+                    Salvar
+                </span>
+                <mat-progress-spinner
+                    *ngIf="Form.disabled"
+                    [diameter]="24"
+                    [mode]="'indeterminate'"></mat-progress-spinner>
+            </button>
+        </div>
+    </form>
+
+</div>

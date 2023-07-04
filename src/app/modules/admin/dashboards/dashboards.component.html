@@ -1,0 +1,75 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="bg-card">
+        <div class="flex flex-col w-full max-w-screen-xl  px-6 sm:px-8">
+            <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-8 sm:my-12">
+                <!-- Avatar and name -->
+                <div class="flex flex-auto items-center min-w-0">
+                    <div class="flex flex-col min-w-0 ml-4">
+                        <ng-container >
+                            <div class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">Bem-Vindo {{user.name}}!</div>
+                        </ng-container>
+            
+                    </div>
+                </div>
+                
+            </div>
+        
+        </div>
+    </div>
+
+    
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10" *ngIf="true">
+
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full min-w-0">
+            <!-- Summary -->
+            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                <div class="flex items-start justify-between">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">Total de Envios:</div>
+                </div>
+                <div class="flex flex-col items-center mt-2">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500">{{totalEnviado}}</div>
+                    <div class="text-lg font-medium text-blue-600 dark:text-blue-500">Enviados</div>
+                </div>
+            </div>
+            <!-- Overdue -->
+            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                <div class="flex items-start justify-between">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">WebPush:</div>
+                </div>
+                <div class="flex flex-col items-center mt-2">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500">{{totalWebPush}}</div>
+                    <div class="text-lg font-medium text-red-600 dark:text-red-500">Enviados</div>
+                </div>
+            </div>
+            <!-- Issues -->
+            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                <div class="flex items-start justify-between">
+                    <div class="text-lg font-medium tracking-tight leading-6 truncate">E-mail:</div>
+                </div>
+                <div class="flex flex-col items-center mt-2">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500">{{totalEmail}}</div>
+                    <div class="text-lg font-medium text-amber-600 dark:text-amber-500">Enviados</div>
+                
+                </div>
+            </div>
+            
+            <!-- Features -->
+            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                <div class="flex items-start justify-between">
+                    <div class="text-lg  font-medium tracking-tight leading-6 truncate">SMS:</div>
+                </div>
+                <div class="flex flex-col items-center mt-2">
+                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-green-500">{{totalSms}}</div>
+                    <div class="text-lg font-medium text-green-600 dark:text-green-500">Enviados</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

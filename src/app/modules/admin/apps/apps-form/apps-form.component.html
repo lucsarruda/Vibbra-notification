@@ -1,0 +1,109 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">{{title}}</div>
+        <button
+            mat-icon-button
+            (click)="discard()"
+            [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+        </button>
+    </div>
+
+    <!-- Compose form -->
+    <form
+        class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
+        [formGroup]="Form">
+
+        <!-- Subject -->
+        <mat-form-field>
+            <mat-label>Nome Aplicativo</mat-label>
+            <input
+                matInput
+                [formControlName]="'app_name'">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!this.isnew">
+            <mat-label>Token</mat-label>
+            <input
+                matInput
+                [formControlName]="'app_token'">
+        </mat-form-field>
+
+        <div class="flex flex-col gt-sm:flex-row pb-6">
+            <div class="flex flex-col mt-8 gt-sm:mt-0 gt-sm:ml-16">
+                <span class="font-semibold mb-2">Status Aplicativo</span>
+                <mat-radio-group
+                    class="flex flex-col"
+                    [color]="'primary'"
+                    [value]="'just-good'"
+                    [formControlName]="'app_active'">
+                    <mat-radio-button
+                        class="mb-2"
+                        [value]="true">
+                        Ativo
+                    </mat-radio-button>
+                    <mat-radio-button
+                        class="mb-2"
+                        [value]="false">
+                        Desativo
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        
+        <div class="flex flex-col gt-sm:flex-row pb-4">
+            <div class="flex flex-col">
+                <span class="font-semibold mb-2">Canais Ativos</span>
+                <div class="flex flex-col">
+                    <mat-checkbox
+                        class="mb-2"
+                        [formControlName]="'app_active_webpush'"
+                        [color]="'primary'">
+                        Webpush
+                    </mat-checkbox>
+                    <mat-checkbox
+                        class="mb-2"
+                        [formControlName]="'app_active_email'"
+                        [color]="'primary'">
+                        E-mail
+                    </mat-checkbox>
+                    <mat-checkbox
+                        [checked]="true"
+                        [formControlName]="'app_active_sms'"
+                        [color]="'primary'">
+                        SMS
+                    </mat-checkbox>
+                </div>
+            </div>
+
+        </div>
+       
+
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+            <div class="-ml-2">
+            </div>
+            <div class="flex items-center mt-4 sm:order-last">
+                <!-- Discard -->
+                <button
+                    class="sm:mx-3"
+                    mat-stroked-button
+                    (click)="discard()">
+                    Cancelar
+                </button>
+                <!-- Send -->
+                <button
+                    class="order-first sm:order-last"
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="salve()">
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
