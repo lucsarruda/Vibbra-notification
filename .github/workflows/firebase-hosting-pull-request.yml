@@ -15,7 +15,6 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: '12.x'
-      - run: npm install
       - run: npm watch
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
