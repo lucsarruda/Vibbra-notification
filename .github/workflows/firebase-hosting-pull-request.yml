@@ -5,13 +5,13 @@ name: Firebase CI/CD
 on:
   push:
     branches:
-    - master
+    - main
 jobs:
   firebase-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
+    - uses: actions/checkout@main
+    - uses: actions/setup-node@main
       with:
         node-version: '12.x'
     - name: Install dependencies
